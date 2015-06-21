@@ -1,0 +1,30 @@
+kind: ReplicationController
+apiVersion: v1beta3
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    name: postgres
+  template: 
+    metadata:
+      labels:
+        name: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres@9.4
+          ports:
+            - name: transport
+              containerPort: 5432
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: nq23to8723tr
+      volumes:
+        - name: postgres-storage
+          emptyDir: {}
