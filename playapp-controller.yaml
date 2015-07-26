@@ -1,0 +1,30 @@
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: play-app
+spec:
+  replicas: 3
+  selector:
+    name: play-app
+  template: 
+    metadata:
+      labels:
+        name: play-app
+    spec:
+      containers:
+        - name: play
+          image: msiegenthaler/play-scala-intro:1.0.4
+          ports:
+            - name: web
+              containerPort: 9000
+          env:
+            - name: SLICK_DRIVER
+              value: slick.driver.PostgresDriver$
+            - name: JDBC_DRIVER
+              value: org.postgresql.Driver
+            - name: DB_URL
+              value: jdbc:postgresql://postgres/postgres
+            - name: DB_USER
+              value: postgres
+            - name: DB_PASSWORD
+              value: nq23to8723tr
